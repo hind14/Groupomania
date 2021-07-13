@@ -1,6 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
+
+app.get('/status', (req, res) => {
+    res.send({
+        message: 'Hello groupomania!'
+    })
+})
 
 app.use((req, res, next) => {
   console.log('Requête reçue !');
