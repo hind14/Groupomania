@@ -1,19 +1,12 @@
-//Package de cryptage 'brcypt' pour mot de passe
-
 const bcrypt = require('bcrypt');
-
-//Package de création et vérification des token
-
 const jwt = require('jsonwebtoken');
-
 const User = require('../models/user.models');
 
 exports.signup = (req, res, next) => {
   if (!password.validate(req.body.password)) {
     return res.status(401).json({ error: 'Mot de passe invalide !' });
   }
-// Fonction qui crypte le mdp
-  bcrypt.hash(req.body.password, /*salt: algorithme de hashage*/ 10)
+  bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
         email: req.body.email,
@@ -41,9 +34,7 @@ exports.login = (req, res, next) => {
             userId: user._id,
             token: jwt.sign(
               { userId: user._id, email:maskEmail(req.body.email) },
-              //Clé secrète
               process.env.jwtsecret,
-              //Limite d'expiration du token
               { expiresIn: '24h' }
             )
           });
@@ -55,7 +46,7 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(501).json({ error }));
 };
 
-//Fonction qui obfusque -- sécurité 
+//Fonction qui obfusque l'email --> sécurité 
 
 function maskEmail (email) {
   const mailParts = email.split('@');

@@ -26,22 +26,23 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.user = require("../models/user.models.js")(sequelize, Sequelize);
-//db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
+db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
 
-//We use User.belongsToMany(Role) to indicate that the user model can belong to many Roles and vice versa
+//We use User.belongsToMany(posts) to indicate that the user model can belong to many Roles and vice versa
 //New table  user_roles that makes the connection between users and posts
 
-// db.posts.belongsToMany(db.user, {
-//   through: "user_posts",
-//   foreignKey: "postsId",
-//   otherKey: "userId"
-// });
-// db.user.belongsToMany(db.posts, {
-//   through: "user_posts",
-//   foreignKey: "userId",
-//   otherKey: "postsId"
-// });
+db.posts.belongsToMany(db.user, {
+  through: "user_posts",
+  foreignKey: "postsId",
+  otherKey: "userId"
+});
 
-// db.POSTS = ["user", "admin", "moderator"];
+db.user.belongsToMany(db.posts, {
+  through: "user_posts",
+  foreignKey: "userId",
+  otherKey: "postsId"
+});
+
+db.POSTS = ["user"];
 
 module.exports = db;

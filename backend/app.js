@@ -4,14 +4,15 @@ const express = require('express');
 const cors = require('cors');
 
 //const postsRoutes = require('./routes/posts');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user.routes');
+const postsRoutes = require('./routes/posts.routes');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 const db = require("./models");
-const Role = db.role;
+const Post = db.posts;
 
 const helmet = require('helmet');
 app.use(helmet());
@@ -37,28 +38,9 @@ app.post('/register', (req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
+app.use('/api/posts', postsRoutes);
 
 db.sequelize.sync({force: false}).then(() => {
-  initial();
 });
-
-//initial() function helps us to create 3 rows in database.
-
-function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user"
-//   });
- 
-//   Role.create({
-//     id: 2,
-//     name: "moderator"
-//   });
- 
-//   Role.create({
-//     id: 3,
-//     name: "admin"
-//   });
- };
 
 module.exports = app;
