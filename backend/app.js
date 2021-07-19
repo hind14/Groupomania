@@ -24,23 +24,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res, next) => {
-  res.send({
-    message : 'Welcome to Groupomania'
-  })
-});
-
-app.post('/register', (req, res, next) => {
-  console.log(req.body)
-  res.send({
-      message: `Hello ${req.body.email}! Your register was registered`
-  })
-});
-
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postsRoutes);
 
-db.sequelize.sync({force: false}).then(() => {
-});
+db.sequelize.sync({force: false});
 
 module.exports = app;

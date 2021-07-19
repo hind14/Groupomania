@@ -1,10 +1,18 @@
 <template>
-  <ul id="nav">
-   <li><router-link to="/">Home</router-link> </li>  
-    <li><router-link to="/register">Inscription</router-link></li> 
+<div> <ul id="nav">
+    <li><router-link to="/">Home</router-link></li>
+    <li><router-link to="/inscription">Inscription</router-link></li>
+    <li><router-link to="/connexion">Connexion</router-link></li>
   </ul>
-  <router-view/>
+  <router-view />
+  </div>
 </template>
+
+<script>
+export default {
+  name: "App"
+};
+</script>
 
 <style>
 #app {

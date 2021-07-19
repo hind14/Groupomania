@@ -1,5 +1,5 @@
 <template>
-  <div class="Register">
+  <div class="signup">
     <h1>Inscription</h1>
     <form id="form">
       <label for="email">Email:</label>
@@ -22,7 +22,7 @@
       />
       <br />
 
-      <button @click="register">Inscription</button>
+      <button @click="signup">Inscription</button>
     </form>
   </div>
 </template>
@@ -37,16 +37,16 @@ export default {
     };
   },
   methods: {
-    async register() {
-      axios
-        .post("http://localhost:3000/register", {
+    async signup() {
+      await axios
+        .post("http://localhost:3000/api/auth/signup", {
           email: this.email, password: this.password
         }) 
-        .then(function (response) {
-          console.log(response);
+        .then(function () {
+        this.$router.push("articles")
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
         });
     },
   },

@@ -22,7 +22,7 @@ exports.modifypost = (req, res, next) => {
     {
       ...JSON.parse(req.body.post)
     } : { ...req.body };
-  post.save({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+  post.update({ _id: req.params.id }, { ...postObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'post modifié !' }))
     .catch(error => res.status(400).json({ error }));
 };
@@ -30,7 +30,7 @@ exports.modifypost = (req, res, next) => {
 exports.deletepost = (req, res, next) => {
   post.findOne({ _id: req.params.id })
     .then((post) => {
-        post.destroy({ _id: req.params.id })
+        post.delete({ _id: req.params.id })
           .then(() => res.status(200).json({ message: 'post supprimé !' }))
           .catch(error => res.status(400).json({ error }));
     })

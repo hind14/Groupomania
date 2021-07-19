@@ -1,26 +1,26 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.models');
+const db = require('../models');
+const User = db.user;
 
 exports.signup = (req, res, next) => {
-  if (!password.validate(req.body.password)) {
-    return res.status(401).json({ error: 'Mot de passe invalide !' });
-  }
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      const user = new User({
+      User.create({
         email: req.body.email,
         password: hash
-      });
-      user.create()
+      })
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(error => res.status(400).json({ error }));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => {
+      console.log(error)
+      return res.status(500).json({ error })
+    });
 };
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -31,16 +31,17 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           res.status(200).json({
-            userId: user._id,
+            userId: user.id,
             token: jwt.sign(
-              { userId: user._id, email:maskEmail(req.body.email) },
+              { userId: user.id, email: maskEmail(req.body.email) },
               process.env.jwtsecret,
               { expiresIn: '24h' }
             )
           });
         })
         .catch(error => {
-         return res.status(502).json({ error })}
+          return res.status(502).json({ error })
+        }
         );
     })
     .catch(error => res.status(501).json({ error }));
@@ -48,17 +49,17 @@ exports.login = (req, res, next) => {
 
 //Fonction qui obfusque l'email --> sécurité 
 
-function maskEmail (email) {
+function maskEmail(email) {
   const mailParts = email.split('@');
   const partLeft = obfuscate(mailParts[0]);
   const partRight = obfuscate(mailParts[1]);
   return partLeft + '@' + partRight;
 };
 
-function obfuscate (strings) {
+function obfuscate(strings) {
   let output = '';
-  for (let i=0; i < strings.length; i++) {
-    if (i >= strings.length/4) {
+  for (let i = 0; i < strings.length; i++) {
+    if (i >= strings.length / 4) {
       output += '*';
     } else {
       output += strings[i];
