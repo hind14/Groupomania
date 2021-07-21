@@ -18,9 +18,14 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/articles',
-    name: 'Posts',
-    component: () => import('../views/Posts.vue')
+    path: '/tous-les-articles',
+    name: 'AllPosts',
+    component: () => import('../views/DispPosts.vue')
+  },
+  {
+    path: '/écrire-un-nouvel-article',
+    name: 'NewPost',
+    component: () => import('../views/NewPost.vue')
   }
 ]
 

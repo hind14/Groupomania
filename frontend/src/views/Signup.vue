@@ -29,6 +29,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
           email: this.email, password: this.password
         }) 
         .then(function () {
-        this.$router.push("articles")
+        this.$router.push("tous-les-articles")
         })
         .catch(function (error) {
           console.log(error)

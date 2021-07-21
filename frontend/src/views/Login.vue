@@ -45,7 +45,7 @@ export default {
         })
         .then( (res) => {
           console.log(res);
-          this.$router.push("articles")
+          this.$router.push("tous-les-articles")
 })
         .catch( (error) => {
           console.log(error);
