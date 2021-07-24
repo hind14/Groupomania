@@ -1,11 +1,24 @@
 <template>
   <div class="posting">
+    
+  <div>
+    <ul id="nav">
+      <li><router-link to="/tous-les-articles"> Retour </router-link></li>
+    </ul>
+    <router-view />
+  </div>
+  
     <h1>Postez vos articles !</h1>
+
     <div v-if="!submitted">
-      <form id="posts-form">
         <div id="title-field">
           <label for="title">Titre</label>
-          <input type="text" id="title" required="true" v-model="title" />
+          <input
+           type="text" 
+           id="title" 
+           required 
+           v-model="post.title"
+           name="title" />
         </div>
 
         <div id="content-field">
@@ -13,9 +26,10 @@
           <textarea
             type="text"
             id="content"
-            required="true"
-            v-model="content"
+            required
+            v-model="post.content"
             placeholder="Ecrivez votre article..."
+            name="content"
           >
           </textarea>
         </div>
@@ -23,20 +37,20 @@
         <button @click="sendPost" class="btn btn-success">
           Poster l'article
         </button>
-      </form>
     </div>
 
     <div v-else>
-      <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newPost">Add</button>
+      <h4>L'article  a été posté !</h4>
+      <button class="btn btn-success" @click="newPost">Ajouter</button>
     </div>
   </div>
 </template>
 
 <script>
-import PostsRoutes from "../services/Post-routes";
+import PostRoutes from "../services/Post-routes";
 
 export default {
+  name: "NewPost",
   data() {
     return {
       post: {
@@ -50,18 +64,18 @@ export default {
   },
   methods: {
     sendPost() {
-      const createPost = {
+      const data = {
         title: this.post.title,
         content: this.post.content,
       };
-      PostsRoutes.create(createPost)
+      PostRoutes.create(data)
         .then((response) => {
-          this.post.id = response.createPost.id;
-          console.log(response.createPost);
+          this.post.id = response.data.id;
+          console.log(response.data);
           this.submitted = true;
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error, 'erreur axios post');
         });
     },
 

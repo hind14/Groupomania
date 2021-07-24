@@ -1,7 +1,10 @@
 <template>
   <div class="signup">
+
+     <router-link to="/"> Retour </router-link> <br/>
+
     <h1>Inscription</h1>
-    <form id="form">
+    <form  @submit.prevent="signup" id="form">
       <label for="email">Email:</label>
       <input
         type="email"
@@ -18,11 +21,11 @@
         id="password"
         name="password"
         v-model="password"
-        required="true"
+        required="true"  
       />
       <br />
 
-      <button @click="signup">Inscription</button>
+      <button>Inscription</button>
     </form>
   </div>
 </template>
@@ -40,11 +43,13 @@ export default {
   methods: {
     async signup() {
       await axios
-        .post("http://localhost:3000/api/auth/signup", {
-          email: this.email, password: this.password
+        .post("http://localhost:3000/api/auth/inscription", {
+          email: this.email,
+          password: this.password
         }) 
-        .then(function () {
-        this.$router.push("tous-les-articles")
+        .then(function (res) {
+          console.log(res);
+        this.$router.push("http://localhost:3000/api/articles");
         })
         .catch(function (error) {
           console.log(error)
@@ -53,7 +58,6 @@ export default {
   },
 };
 </script>
-
 
 <style>
 </style>

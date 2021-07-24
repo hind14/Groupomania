@@ -1,7 +1,9 @@
 <template>
   <div class="login">
+    <router-link to="/"> Retour </router-link> <br />
+
     <h1>Connexion</h1>
-    <form id="form">
+    <form @submit.prevent="login" id="form">
       <label for="email">Email:</label>
       <input
         type="email"
@@ -22,13 +24,14 @@
       />
       <br />
 
-      <button @click="login">Se connecter</button>
+      <button>Se connecter</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -37,18 +40,18 @@ export default {
     };
   },
   methods: {
-    async login() {
+    login() {
       axios
-        .post("http://localhost:3000/api/auth/login", {
+        .post("http://localhost:3000/api/auth/connexion", {
           email: this.email,
           password: this.password,
         })
-        .then( (res) => {
-          console.log(res);
-          this.$router.push("tous-les-articles")
-})
-        .catch( (error) => {
-          console.log(error);
+        .then((res) => {
+          localStorage.setItem("groupomania", JSON.stringify(res.data));
+          this.$router.push("articles");
+        })
+        .catch((error) => {
+          console.log(error, 'erreur connexion login.vue');
         });
     },
   },

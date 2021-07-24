@@ -18,14 +18,19 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/tous-les-articles',
+    path: '/articles',
     name: 'AllPosts',
     component: () => import('../views/DispPosts.vue')
   },
   {
-    path: '/écrire-un-nouvel-article',
+    path: '/ecrire-un-nouvel-article',
     name: 'NewPost',
     component: () => import('../views/NewPost.vue')
+  },
+  {
+    path: '/modifier-votre-article',
+    name: 'EditPost',
+    component: () => import('../views/EditPost.vue')
   }
 ]
 

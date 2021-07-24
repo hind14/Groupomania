@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-//const postsRoutes = require('./routes/posts');
 const userRoutes = require('./routes/user.routes');
 const postsRoutes = require('./routes/posts.routes');
 
@@ -12,7 +11,6 @@ app.use(express.json());
 app.use(cors());
 
 const db = require("./models");
-const Post = db.posts;
 
 const helmet = require('helmet');
 app.use(helmet());
@@ -25,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
-app.use('/api/posts', postsRoutes);
+app.use('/api/articles', postsRoutes);
 
 db.sequelize.sync({force: false});
 

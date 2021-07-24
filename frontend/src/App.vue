@@ -1,16 +1,12 @@
 <template>
-<div> <ul id="nav">
-    <li><router-link to="/">Home</router-link></li>
-    <li><router-link to="/inscription">Inscription</router-link></li>
-    <li><router-link to="/connexion">Connexion</router-link></li>
-  </ul>
-  <router-view />
+  <div>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
 };
 </script>
 

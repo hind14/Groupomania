@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     password: {
       type: Sequelize.STRING
+    },
+    isAdmin: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true
     }
   });
   
