@@ -33,6 +33,7 @@
 import axios from "axios";
 
 export default {
+  name: "login",
   data() {
     return {
       email: "",
@@ -51,7 +52,7 @@ export default {
           this.$router.push("articles");
         })
         .catch((error) => {
-          console.log(error, 'erreur connexion login.vue');
+          console.log(error);
         });
     },
   },

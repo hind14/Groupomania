@@ -1,16 +1,16 @@
 <template>
-  <div></div>
+<div>
+     <!-- delete account -->
+</div>
+   
 </template>
 
 <script>
-
 export default {
-  name: "post",
-  data() {
-    return {};
-  },
-};
+    
+}
 </script>
 
 <style>
+
 </style>

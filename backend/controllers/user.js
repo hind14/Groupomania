@@ -7,6 +7,8 @@ exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       User.create({
+        name: req.body.name,
+        lastname: req.body.lastname,
         email: req.body.email,
         password: hash
       })
@@ -47,7 +49,8 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(501).json({ error }));
 };
 
-//Fonction qui obfusque l'email --> sécurité 
+//Delete user
+
 
 function maskEmail(email) {
   const mailParts = email.split('@');

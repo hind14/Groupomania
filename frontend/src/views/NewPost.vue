@@ -3,7 +3,7 @@
     
   <div>
     <ul id="nav">
-      <li><router-link to="/tous-les-articles"> Retour </router-link></li>
+      <li><router-link to="/articles"> Retour </router-link></li>
     </ul>
     <router-view />
   </div>

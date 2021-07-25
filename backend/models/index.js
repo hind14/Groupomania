@@ -27,6 +27,7 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.models.js")(sequelize, Sequelize);
 db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
+db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
 db.posts.belongsToMany(db.user, {
   through: "user_posts",
@@ -39,6 +40,17 @@ db.user.belongsToMany(db.posts, {
   foreignKey: "userId",
   otherKey: "postsId"
 });
+
+db.comments.belongsToMany(db.user, {
+  through: "user_comments",
+  foreignKey: "userId",
+  otherKey: "comments"
+});
+
+//Clés étrangères - relations :
+// Article.userId, User.id,
+// Commentaire.userId, User.id,
+// Commentaire.articleId => Article.id
 
 db.POSTS = ["user"];
 
