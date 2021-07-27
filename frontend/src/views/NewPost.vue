@@ -1,12 +1,26 @@
 <template>
   <div class="posting">
     
-  <div>
-    <ul id="nav">
-      <li><router-link to="/articles"> Retour </router-link></li>
-    </ul>
-    <router-view />
-  </div>
+    <div id="header">
+      <img
+        id="icon-groupo"
+        src="../images/icon-groupo.png"
+        alt="icon groupomania"
+      />
+      <nav>
+        <ul>
+          <li>
+            <router-link class="router-style" to="/profil">Mon profil </router-link>
+          </li>
+          <!-- <li>
+            <router-link to="/" @click="logout" class="router-style">Deconnexion</router-link>
+          </li> -->
+          <li>
+            <router-link to="/articles"> Articles </router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   
     <h1>Postez vos articles !</h1>
 
@@ -41,47 +55,44 @@
 
     <div v-else>
       <h4>L'article  a été posté !</h4>
-      <button class="btn btn-success" @click="newPost">Ajouter</button>
+      <router-link to="/articles"> Retour à la liste des articles </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import PostRoutes from "../services/Post-routes";
+import PostRoutes from "../services/auth.posts";
 
 export default {
   name: "NewPost",
-  data() {
+  data() { 
     return {
       post: {
         id: null,
         title: "",
-        content: "",
-        published: false,
+        content: ""
       },
       submitted: false,
     };
   },
   methods: {
+    
     sendPost() {
+      const userId = localStorage.getItem("groupomania", userId);
       const data = {
         title: this.post.title,
         content: this.post.content,
       };
       PostRoutes.create(data)
-        .then((response) => {
-          this.post.id = response.data.id;
-          console.log(response.data);
+        .then((res) => {
+          userId,
+          this.post.id = res.data.id;
           this.submitted = true;
         })
+
         .catch((error) => {
           console.log(error, 'erreur axios post');
         });
-    },
-
-    newPost() {
-      this.submitted = false;
-      this.post = {};
     },
   },
 };
@@ -89,7 +100,9 @@ export default {
 
 <style>
 #content {
-  padding: 10px 300px 300px 10px;
+  width: 400px;
+  height: 400px;
+  padding: 10px;
 }
 #title-field {
   margin: 20px;

@@ -28,9 +28,9 @@ const routes = [
     component: () => import('../views/NewPost.vue')
   },
   {
-    path: '/modifier-votre-article',
-    name: 'EditPost',
-    component: () => import('../views/EditPost.vue')
+    path: '/profil',
+    name: 'UserProfil',
+    component: () => import('../views/Profil.vue')
   }
 ]
 

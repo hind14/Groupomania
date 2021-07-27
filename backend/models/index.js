@@ -29,29 +29,28 @@ db.user = require("../models/user.models.js")(sequelize, Sequelize);
 db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
 db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
-db.posts.belongsToMany(db.user, {
-  through: "user_posts",
-  foreignKey: "postsId",
-  otherKey: "userId"
-});
-
-db.user.belongsToMany(db.posts, {
-  through: "user_posts",
-  foreignKey: "userId",
-  otherKey: "postsId"
-});
-
-db.comments.belongsToMany(db.user, {
-  through: "user_comments",
-  foreignKey: "userId",
-  otherKey: "comments"
-});
-
 //Clés étrangères - relations :
 // Article.userId, User.id,
 // Commentaire.userId, User.id,
 // Commentaire.articleId => Article.id
 
-db.POSTS = ["user"];
+db.posts.belongsTo(db.user, {
+  foreignKey: "userId",
+  as: "user",
+});
+
+db.comments.belongsTo(db.user, {
+  foreignKey: "userId",
+  as: "user"
+});
+
+db.user.hasMany(db.posts, { as: "posts"});
+db.user.hasMany(db.comments, {as : "comments"});
+
+db.comments.belongsToMany(db.posts, {
+  through: "posts_comments",
+  foreignKey: "commentsId",
+  otherKey: "postsId"
+});
 
 module.exports = db;

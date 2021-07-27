@@ -1,6 +1,23 @@
 <template>
   <div class="login">
-    <router-link to="/"> Retour </router-link> <br />
+    <div id="header">
+      <img
+        id="icon-groupo"
+        src="../images/icon-groupo.png"
+        alt="icon groupomania"
+      />
+      <nav>
+        <ul>
+          <li>
+            <router-link class="router-style" to="/"> Accueil </router-link>
+          </li>
+           <li>
+            <router-link class="router-style" to="/inscription"> Inscription </router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
 
     <h1>Connexion</h1>
     <form @submit.prevent="login" id="form">

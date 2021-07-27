@@ -1,13 +1,24 @@
 <template>
   <div class="signup">
+
     <div id="header">
       <img
         id="icon-groupo"
         src="../images/icon-groupo.png"
         alt="icon groupomania"
       />
-      <router-link id="home" to="/">Accueil</router-link>
+      <nav>
+        <ul>
+          <li>
+            <router-link class="router-style" to="/"> Accueil </router-link>
+          </li>
+           <li>
+            <router-link class="router-style" to="/connexion"> Connexion </router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
+
     <div class="form-style">
       <h1>N'attendez plus, inscrivez-vous !</h1>
       <form @submit.prevent="signup" id="form">

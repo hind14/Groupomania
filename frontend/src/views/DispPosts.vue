@@ -9,11 +9,11 @@
       <nav>
         <ul>
           <li>
-            <router-link class="router-style" to="/profile">Mon profil </router-link>
+            <router-link class="router-style" to="/profil">Mon profil </router-link>
           </li>
-          <li>
-            <router-link class="router-style" to="/">Deconnexion</router-link>
-          </li>
+          <!-- <li>
+            <router-link to="/" @click="logout" class="router-style">Deconnexion</router-link>
+          </li> -->
           <li>
             <router-link id="add-post" to="/ecrire-un-nouvel-article">Ajouter un article</router-link>
           </li>
@@ -26,77 +26,66 @@
 <!-- Page fil d'actualité : on charge une liste d'articles vertical avec
  Nom et Prénom de l'auteur, date de publication, Titre & premiers mots du contenu.
   -->
-    <ul class="list-group">
+    <ul class="list-container">
       <li
-        class="list-group-item"
-        :class="{ active: index == currentIndex }"
+        class="list-posts"
+        :class="{ active: index}"
         v-for="(post, index) in posts"
         :key="index"
       >
-        {{ post }}
+      <h4> {{ post.title }} </h4>
+      {{ post.content}} 
+      <div> Publié à {{ post.createdAt }}  par </div>
+      <i  @click="trashPost"  class="fas fa-trash"></i>
+          <div class="comments">commentaire ici</div>
       </li>
     </ul>
-    <!-- <div v-if="currentPosts">
-      <div>
-        <label><strong>Titre:</strong></label>
-        {{ currentPosts.title }}
-      </div>
-      <div>
-        <label><strong>Contenu:</strong></label>
-        {{ currentPosts.content }}
-      </div>
-      <div></div>
-
-      <router-link to="/modifier-votre-article/" + currentPosts.id>
-        Modidier votre article
-      </router-link>
-    </div>
-    <div v-else>
-      <br />
-      <p>Il n'y a aucun article.</p>
-    </div> -->
   </div>
 </template>
 
 <script>
-import PostRoutes from "../services/Post-routes";
+import PostRoutes from "../services/auth.posts";
 
 export default {
   name: "AllPosts",
   data() {
     return {
-      posts: [],
-      currentPosts: null,
-      currentIndex: -1,
-      title: "",
+      posts: []
     };
   },
   methods: {
     retrievePosts() {
       PostRoutes.getAll()
-        .then((response) => {
-          this.posts = response.data;
-          console.log(response.data);
+        .then((res) => {
+          this.posts = res.data;
         })
         .catch((error) => {
-          console.log(error.response.data, "erreur axios get");
+          console.log(error);
         });
     },
-    //   refreshList() {
-    //     this.retrievePosts();
-    //     this.currentPosts = null;
-    //     this.currentIndex = -1;
-    //   },
-    //   setActivePost(post, index) {
-    //     this.currentPosts = post;
-    //     this.currentIndex = index;
-    //   },
   },
   mounted() {
     this.retrievePosts();
-  },
+  }
+  // trashPost() {
+  //   //recp userId + delete post
+  // }
+  // logout() {
+  //     localStorage.remove("groupomania");
+  // }
 };
 </script>
 
 <style>
+.list-posts {
+  border: black 2px solid;
+  background-color: burlywood;
+  margin: 20px;
+  padding: 10px;
+}
+.comments {
+  background-color: brown;
+  border: black 2px solid;
+  padding: 10px;
+}
 </style>

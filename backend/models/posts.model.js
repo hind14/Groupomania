@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       content: {
         type: Sequelize.STRING
-      }
+      },
     });
   
     return Posts;

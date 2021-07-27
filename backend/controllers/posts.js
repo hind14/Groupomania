@@ -2,8 +2,7 @@ const db = require("../models");
 const Post = db.posts;
 
 exports.createPost = (req, res, next) => {
-  console.log(req.body);
-  const post = {title: req.body.title, content: req.body.content}
+  const post = {title: req.body.title, content: req.body.content, userId: req.body.userId}
   Post.create(post)
     .then(() => res.status(201).json({ message: 'post enregistré !' }))
     .catch(error => res.status(400).json({ error }));
@@ -20,7 +19,7 @@ exports.getAllposts = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
+  Post.findByPk({ id: req.params.id })
     .then((post) => { res.status(200).json(post); })
     .catch((error) => {
       res.status(404).json({ error: error });
@@ -37,13 +36,22 @@ exports.modifyPost = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
-
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ id: req.params.id })
-    .then((post) => {
-        post.delete({ id: req.params.id })
-          .then(() => res.status(200).json({ message: 'post supprimé !' }))
-          .catch(error => res.status(400).json({ error }));
+  Post.detroy({ id: req.params.id })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Post was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
+        });
+      }
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Post with id=" + id
+      });
+    })
 };
