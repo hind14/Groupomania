@@ -19,39 +19,22 @@ exports.getAllposts = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findByPk({ id: req.params.id })
-    .then((post) => { res.status(200).json(post); })
+  Post.findOne({ where: {id: req.params.id }})
+    .then((post) => {
+      res.status(200).json(post); 
+    })
     .catch((error) => {
-      res.status(404).json({ error: error });
+       res.status(404).json({ error: error});
     });
 };
 
-exports.modifyPost = (req, res, next) => {
-  const postObject = req.file ?
-    {
-      ...JSON.parse(req.body.post)
-    } : { ...req.body };
-  Post.update({ id: req.params.id }, { ...postObject, id: req.params.id })
-    .then(() => res.status(200).json({ message: 'post modifié !' }))
-    .catch(error => res.status(400).json({ error }));
-};
 
-exports.deletePost = (req, res, next) => {
-  Post.detroy({ id: req.params.id })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "Post was deleted successfully!"
-        });
-      } else {
-        res.send({
-          message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete Post with id=" + id
-      });
-    })
-};
+// exports.deletePost = (req, res, next) => {
+//   Post.detroy({ where: {id: req.params.id }})
+//     .then((post) => {
+//       res.status(200).json(post); 
+//         })
+//     .catch((error) => {
+//       res.status(404).json({ error: error});
+//    });
+// };

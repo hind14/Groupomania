@@ -11,9 +11,9 @@
           <li>
             <router-link class="router-style" to="/profil">Mon profil </router-link>
           </li>
-          <!-- <li>
-            <router-link to="/" @click="logout" class="router-style">Deconnexion</router-link>
-          </li> -->
+          <li>
+            <button @click="logout" class="router-style">Deconnexion</button>
+          </li>
           <li>
             <router-link id="add-post" to="/ecrire-un-nouvel-article">Ajouter un article</router-link>
           </li>
@@ -29,15 +29,13 @@
     <ul class="list-container">
       <li
         class="list-posts"
-        :class="{ active: index}"
-        v-for="(post, index) in posts"
-        :key="index"
+        v-for="post in posts"
+        :key="post"
       >
       <h4> {{ post.title }} </h4>
-      {{ post.content}} 
-      <div> Publié à {{ post.createdAt }}  par </div>
-      <i  @click="trashPost"  class="fas fa-trash"></i>
-          <div class="comments">commentaire ici</div>
+      <div>{{ post.content}} </div>
+      <div> Publié à {{ post.createdAt }}  par  </div>
+                <router-link :to="{name: 'OnePost', params: { id: post.id }}">Voir l'article</router-link>
       </li>
     </ul>
   </div>
@@ -66,12 +64,11 @@ export default {
   },
   mounted() {
     this.retrievePosts();
-  }
-  // trashPost() {
-  //   //recp userId + delete post
-  // }
-  // logout() {
-  //     localStorage.remove("groupomania");
+  },
+  // logout(res) {
+  //     localStorage.removeItem("groupomania");
+  //     this.$router.push("connexion");
+  //     console.log(res, 'logout')
   // }
 };
 </script>

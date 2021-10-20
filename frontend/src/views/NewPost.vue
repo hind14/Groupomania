@@ -1,6 +1,5 @@
 <template>
   <div class="posting">
-    
     <div id="header">
       <img
         id="icon-groupo"
@@ -10,7 +9,9 @@
       <nav>
         <ul>
           <li>
-            <router-link class="router-style" to="/profil">Mon profil </router-link>
+            <router-link class="router-style" to="/profil"
+              >Mon profil
+            </router-link>
           </li>
           <!-- <li>
             <router-link to="/" @click="logout" class="router-style">Deconnexion</router-link>
@@ -21,40 +22,41 @@
         </ul>
       </nav>
     </div>
-  
+
     <h1>Postez vos articles !</h1>
 
     <div v-if="!submitted">
-        <div id="title-field">
-          <label for="title">Titre</label>
-          <input
-           type="text" 
-           id="title" 
-           required 
-           v-model="post.title"
-           name="title" />
-        </div>
+      <div id="title-field">
+        <label for="title">Titre</label>
+        <input
+          type="text"
+          id="title"
+          required
+          v-model="post.title"
+          name="title"
+        />
+      </div>
 
-        <div id="content-field">
-          <label for="content"></label>
-          <textarea
-            type="text"
-            id="content"
-            required
-            v-model="post.content"
-            placeholder="Ecrivez votre article..."
-            name="content"
-          >
-          </textarea>
-        </div>
+      <div id="content-field">
+        <label for="content"></label>
+        <textarea
+          type="text"
+          id="content"
+          required
+          v-model="post.content"
+          placeholder="Ecrivez votre article..."
+          name="content"
+        >
+        </textarea>
+      </div>
 
-        <button @click="sendPost" class="btn btn-success">
-          Poster l'article
-        </button>
+      <button @click="sendPost" class="btn btn-success">
+        Poster l'article
+      </button>
     </div>
 
     <div v-else>
-      <h4>L'article  a été posté !</h4>
+      <h4>L'article a été posté !</h4>
       <router-link to="/articles"> Retour à la liste des articles </router-link>
     </div>
   </div>
@@ -65,33 +67,31 @@ import PostRoutes from "../services/auth.posts";
 
 export default {
   name: "NewPost",
-  data() { 
+  data() {
     return {
       post: {
         id: null,
         title: "",
-        content: ""
+        content: "",
       },
       submitted: false,
     };
   },
   methods: {
-    
     sendPost() {
-      const userId = localStorage.getItem("groupomania", userId);
+      const storage = JSON.parse(localStorage.getItem("groupomania"));
+
       const data = {
         title: this.post.title,
         content: this.post.content,
+        userId: storage.userId,
       };
       PostRoutes.create(data)
-        .then((res) => {
-          userId,
-          this.post.id = res.data.id;
+        .then(() => {
           this.submitted = true;
         })
-
         .catch((error) => {
-          console.log(error, 'erreur axios post');
+          console.log(error, "erreur axios post");
         });
     },
   },

@@ -31,6 +31,11 @@ const routes = [
     path: '/profil',
     name: 'UserProfil',
     component: () => import('../views/Profil.vue')
+  },
+  {
+    path: '/article/:id',
+    name: 'OnePost',
+    component: () => import('../views/DispOnePost.vue')
   }
 ]
 

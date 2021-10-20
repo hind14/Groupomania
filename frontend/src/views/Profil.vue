@@ -24,15 +24,39 @@
         </ul>
       </nav>
     </div>
-    <h1> Bienvenue</h1>
+    <h1>Bienvenue</h1>
+    <button v-on:click="deleteAccount">Supprimer mon compte</button>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+  name: "UserProfil",
   data() {
     return {
-
+      user: {
+      id: "",
+      name: ""
+      }
+    };
+  },
+  methods: {
+    deleteAccount(id) {
+      const token = JSON.parse(localStorage.getItem("groupomania")).token
+      axios.delete(`http://localhost:3000/api/profil/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+      })
+        .then(() => {
+          this.$router.push("connexion");
+          localStorage.removeItem("groupomania");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };

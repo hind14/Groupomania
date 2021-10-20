@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { user } = require('../models');
 const db = require('../models');
 const User = db.user;
 
@@ -49,20 +50,17 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(501).json({ error }));
 };
 
-// User.findByPk(userd, { include: ["posts"] });
-// User.findAll({ include: ["posts"] });
+// DELETE !
 
-//Delete user
-
-// exports.deleteUser = (req, res, next) => {
-//   User.findByPk(users) 
-//   .then((user) => {
-//     user.destroy({ users })
-//       .then(() => res.status(200).json({ message: 'compte suprimé !' }))
-//       .catch(error => res.status(400).json({ error }));
-// })
-// .catch(error => res.status(500).json({ error }));
-// }
+exports.deleteUser = (req, res, next) => {
+  User.findOne ({where: { userId: req.body.id }}) 
+  .then((user) => {
+    user.destroy({ user })
+      .then(() => res.status(200).json({ message: 'compte suprimé !' }))
+      .catch(error => res.status(400).json({ error }));
+})
+.catch(error => res.status(500).json({ error }));
+}
 
 function maskEmail(email) {
   const mailParts = email.split('@');

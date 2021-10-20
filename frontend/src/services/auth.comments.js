@@ -1,23 +1,32 @@
-import axios from "./http-common";
+// import axios from "./http-common";
 
-class CommentsRoutes {
-  create(data) {
-    const token = JSON.parse(localStorage.getItem("groupomania")).token
-    return axios.post("/articles", data, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
-  }
+// class CommentsRoutes {
+//   getAll(commentId) {
+//     const token = JSON.parse(localStorage.getItem("groupomania")).token
+//     return axios.get(`http://localhost:3000/api/comments/${postId}`,  {
+//       headers: {
+//         authorization: `Bearer ${token}`
+//       }
+//     })
+//   }
 
-  delete(id) {
-    const token = JSON.parse(localStorage.getItem("groupomania")).token
-    return axios.delete(`/articles/${id}`, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
-  }
-}
+//   create(commentId, data) {
+//     const token = JSON.parse(localStorage.getItem("groupomania")).token
+//     return axios.post(`/comments/${postId}`, data, {
+//       headers: {
+//         authorization: `Bearer ${token}`
+//       }
+//     })
+//   }
 
-export default new CommentsRoutes();
+//   delete(commentId) {
+//     const token = JSON.parse(localStorage.getItem("groupomania")).token
+//     return axios.delete(`/comment/${postId}`, {
+//       headers: {
+//         authorization: `Bearer ${token}`
+//       }
+//     })
+//   }
+// }
+
+// export default new CommentsRoutes();

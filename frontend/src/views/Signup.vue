@@ -93,8 +93,7 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.$router.push("connexion");
         })
         .catch((error) => {
