@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
+//Différentes routes qui mènent aux différentes pages selon  
+//le nom, les composants vue. Création d'un chemin URL 
 const routes = [
   {
     path: '/',
@@ -28,15 +30,15 @@ const routes = [
     component: () => import('../views/NewPost.vue')
   },
   {
+    path: '/articles/:id',
+    name: 'OnePost',
+    component: () => import('../views/DispOnePost.vue')
+  },
+  {
     path: '/profil',
     name: 'UserProfil',
     component: () => import('../views/Profil.vue')
   },
-  {
-    path: '/article/:id',
-    name: 'OnePost',
-    component: () => import('../views/DispOnePost.vue')
-  }
 ]
 
 const router = createRouter({
@@ -44,4 +46,4 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default router;

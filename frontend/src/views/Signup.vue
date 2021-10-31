@@ -21,6 +21,9 @@
 
     <div class="form-style">
       <h1>N'attendez plus, inscrivez-vous !</h1>
+       <!-- Création d'un formulaire pour s'inscrire
+        Événement submit avec un prevent qui évite le rechargement de la page
+        Utilisation du v-model pour relier et mettre à jour les données (data)  -->
       <form @submit.prevent="signup" id="form">
         <label for="name">Prénom</label>
         <input
@@ -76,6 +79,7 @@ import axios from "axios";
 
 export default {
   name: "signup",
+  //Récupération du data grâce au v-model
   data() {
     return {
       name: "",
@@ -84,6 +88,8 @@ export default {
       password: ""
     };
   },
+  //Appel d'axios pour consommer l'API ci-dessous
+  //Envoi des données à l'API grâce à axios 
   methods: {
     signup() {
       axios
@@ -93,7 +99,9 @@ export default {
           email: this.email,
           password: this.password,
         })
+        //Redirection vers la page connexion
         .then(() => {
+          alert('Bravo ! Vous êtes inscris !');
           this.$router.push("connexion");
         })
         .catch((error) => {

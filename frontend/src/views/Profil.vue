@@ -57,7 +57,11 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
+    logout() {
+      localStorage.removeItem("groupomania-user");
+      this.$router.push("connexion");
+    },
   }
 };
 </script>

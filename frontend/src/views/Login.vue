@@ -18,8 +18,10 @@
       </nav>
     </div>
 
-
     <h1>Connexion</h1>
+      <!-- Création d'un formulaire pour se connecter 
+      Événement submit avec un prevent qui évite le chargement de la page
+      Utilisation du v-model pour relier et mettre à jour les données (data)  -->
     <form @submit.prevent="login" id="form">
       <label for="email">Email:</label>
       <input
@@ -51,12 +53,15 @@ import axios from "axios";
 
 export default {
   name: "login",
+  //Récupération du data grâce au v-model
   data() {
     return {
       email: "",
       password: "",
     };
   },
+  //Appel d'axios pour consommer l'API ci-dessous
+  //Envoi des données à l'API grâce à axios
   methods: {
     login() {
       axios
@@ -64,8 +69,10 @@ export default {
           email: this.email,
           password: this.password,
         })
+        //Création d'un localStorage qui enregistre les données
+        //Puis la page est rediriger vers les articles
         .then((res) => {
-          localStorage.setItem("groupomania", JSON.stringify(res.data));
+          localStorage.setItem("groupomania-user", JSON.stringify(res.data));
           this.$router.push("articles");
         })
         .catch((error) => {

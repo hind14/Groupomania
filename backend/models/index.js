@@ -1,3 +1,5 @@
+//Configuration de la base de donnée grâce à Sequelize
+
 const config = require("../config/db.config");
 
 const Sequelize = require("sequelize");
@@ -20,37 +22,43 @@ const sequelize = new Sequelize(
   }
 );
 
+//Variable qui stocke un objet vide pour la base de donnée
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+//Récupération des modèles de base de données 
+//pour les utilisateurs, les articles et les commentaires
 db.user = require("../models/user.models.js")(sequelize, Sequelize);
 db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
 db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
-//Clés étrangères - relations :
-// Article.userId, User.id,
-// Commentaire.userId, User.id,
-// Commentaire.articleId => Article.id
-
+//Un article possède l'id de l'utilisateur
 db.posts.belongsTo(db.user, {
   foreignKey: "userId",
   as: "user",
 });
 
+//Un commentaire possède l'id d'un utilisateur
 db.comments.belongsTo(db.user, {
   foreignKey: "userId",
   as: "user"
 });
 
+////Un commentaire possède l'id d'un article
 db.comments.belongsTo(db.posts, {
   foreignKey: "postId",
-as: "posts"
+  as: "posts"
 });
 
+//Un utilisateur peut avoir plusieurs articles
 db.user.hasMany(db.posts, { as: "posts"});
+
+//Un utilisateur peut avoir plusieurs commentaires
 db.user.hasMany(db.comments, {as : "comments"});
+
+//Un articles peut avoir plusieurs commentaires
 db.posts.hasMany(db.comments, {as : "comments"});
 
 module.exports = db;

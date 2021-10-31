@@ -1,13 +1,17 @@
 const db = require("../models");
 const Post = db.posts;
 
+//CRUD
+
+//Création d'un article
 exports.createPost = (req, res, next) => {
   const post = {title: req.body.title, content: req.body.content, userId: req.body.userId}
   Post.create(post)
-    .then(() => res.status(201).json({ message: 'post enregistré !' }))
+    .then(() => res.status(201).json({ message: 'Post enregistré !' }))
     .catch(error => res.status(400).json({ error }));
 };
 
+//Récupération de tous les articles
 exports.getAllposts = (req, res, next) => {
   Post.findAll()
     .then((posts) => {
@@ -18,6 +22,7 @@ exports.getAllposts = (req, res, next) => {
     });
 };
 
+//Récupération d'un article en cherchant son id (where)
 exports.getOnePost = (req, res, next) => {
   Post.findOne({ where: {id: req.params.id }})
     .then((post) => {
@@ -28,13 +33,13 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
-
-// exports.deletePost = (req, res, next) => {
-//   Post.detroy({ where: {id: req.params.id }})
-//     .then((post) => {
-//       res.status(200).json(post); 
-//         })
-//     .catch((error) => {
-//       res.status(404).json({ error: error});
-//    });
-// };
+//Suppression d'un article en cherchant son id (where)
+exports.deletePost = (req, res, next) => {
+  Post.destroy({ where: {id: req.params.id }})
+    .then((post) => {
+      res.status(200).json(post); 
+        })
+    .catch((error) => {
+      res.status(404).json({ error: error});
+   });
+};
