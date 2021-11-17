@@ -35,9 +35,14 @@ const routes = [
     component: () => import('../views/DispOnePost.vue')
   },
   {
-    path: '/profil',
-    name: 'UserProfil',
-    component: () => import('../views/Profil.vue')
+    path: '/mon_profil',
+    name: 'UserProfile',
+    component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/',
+    name: 'Report',
+    component: () => import('../views/Report.vue')
   },
 ]
 

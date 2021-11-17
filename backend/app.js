@@ -3,19 +3,26 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+// Appel des routes utilisateurs, articles et commentaires
 const userRoutes = require('./routes/user.routes');
 const postsRoutes = require('./routes/posts.routes');
 const commentsRoutes = require('./routes/comments.routes');
+// const adminRoutes = require('./routes/admin.routes');
 
+// Utilisation du framework Express pour faire fonctionner Node.js
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 const db = require("./models");
 
+// Appel d'helmet qui permet de sécuriser Express en créant plusieurs entêtes HTTP.
 const helmet = require('helmet');
 app.use(helmet());
 
+// Middleware d'autorisation qui donne l'accès à l'API depuis n'importe quelle origine,
+// d'utiliser certaines entêtes mentionnées aux requêtes envoyées vers l'API
+// et d'envoyer des requêtes avec les méthodes ci-dessous
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -23,10 +30,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Configuration des routes utilisateurs, articles et commentaires avec l'API
 app.use('/api/auth', userRoutes);
+app.use('/api/user', userRoutes );
 app.use('/api/articles', postsRoutes);
-app.use('/api/', commentsRoutes);
+app.use('/api/articles', commentsRoutes);
+// app.use('/api/auth', adminRoutes);
 
-db.sequelize.sync({force: false});
+db.sequelize.sync({force: false });
 
 module.exports = app;

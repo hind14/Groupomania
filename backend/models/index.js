@@ -34,21 +34,24 @@ db.user = require("../models/user.models.js")(sequelize, Sequelize);
 db.posts = require("../models/posts.model.js")(sequelize, Sequelize);
 db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
-//Un article possède l'id de l'utilisateur
+//Un article appartient à un utilisateur, relié par l'id de l'utilisateur
 db.posts.belongsTo(db.user, {
   foreignKey: "userId",
+  onDelete: 'CASCADE',
   as: "user",
 });
 
-//Un commentaire possède l'id d'un utilisateur
+//Un commentaire appartient à un utilisateur, relié par l'id de l'utilisateur
 db.comments.belongsTo(db.user, {
   foreignKey: "userId",
+  onDelete: 'CASCADE',
   as: "user"
 });
 
 ////Un commentaire possède l'id d'un article
 db.comments.belongsTo(db.posts, {
   foreignKey: "postId",
+  onDelete: 'CASCADE',
   as: "posts"
 });
 

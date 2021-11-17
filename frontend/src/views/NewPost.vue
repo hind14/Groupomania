@@ -9,7 +9,7 @@
       <nav>
         <ul>
           <li>
-            <router-link class="router-style" to="/profil"
+            <router-link class="router-style" to="/mon_profil"
               >Mon profil
             </router-link>
           </li>
@@ -31,9 +31,9 @@
       <div id="title-field">
         <label for="title">Titre</label>
         <input
+         required = "true"
           type="text"
           id="title"
-          required
           v-model="post.title"
           name="title"
         />
@@ -42,9 +42,9 @@
       <div id="content-field">
         <label for="content"></label>
         <textarea
+        required = "true"
           type="text"
           id="content"
-          required
           v-model="post.content"
           placeholder="Ecrivez votre article..."
           name="content"
@@ -119,7 +119,7 @@ export default {
 
 <style>
 #content {
-  width: 400px;
+  width: 350px;
   height: 400px;
   padding: 10px;
 }
@@ -128,7 +128,7 @@ export default {
 }
 button {
   margin: 20px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 15px;
 }
 </style>

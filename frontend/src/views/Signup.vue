@@ -76,6 +76,7 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 
 export default {
   name: "signup",
@@ -101,7 +102,7 @@ export default {
         })
         //Redirection vers la page connexion
         .then(() => {
-          alert('Bravo ! Vous êtes inscris !');
+          swal('Bravo ! Vous êtes inscris !');
           this.$router.push("connexion");
         })
         .catch((error) => {
