@@ -1,5 +1,5 @@
 <template>
-  <div class="my-post">
+  <div class="one-post">
     <div id="header">
       <img
         id="icon-groupo"
@@ -27,7 +27,7 @@
     <div id="post-container">
       <!-- Affichage d'un article -->
       <h1>{{ post.title }}</h1>
-      <div>{{ post.content }}</div>
+      <div id="post-content">{{ post.content }}</div>
       <div>Publié à {{ post.createdAt }} par   </div>
 
       <!-- Affichage du btn supp si l'userId est le même que celui qui est
@@ -59,9 +59,10 @@
         </div>
 
         <!-- Affichage de la liste des commentaires-->
-        <ul>
-          <li v-for="comment in comments" :key="comment.content" id="com-list">
+          <ul id="comment-container">
+          <li v-for="comment in post.comments" :key="comment.content" id="comment-list">
             <div>{{ comment.content }}</div>
+            <div> Ecrit par  </div>
 
            <!-- Affichage du btn supp si l'userId est le même que celui qui est
              dans le localStorage + btn lié avec l'évenement onclick -->
@@ -70,6 +71,7 @@
             </div>
           </li>
         </ul>
+
     </div>
   </div>
 </template>
@@ -91,7 +93,7 @@ export default {
       comment: {
         id: "",
         content: "",
-      },
+      }
     };
   },
   methods: {
@@ -102,7 +104,6 @@ export default {
       PostRoutes.get(id)
         .then((res) => {
           this.post = res.data;
-          console.log(res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -154,25 +155,25 @@ export default {
     },
 
     //Affichage des commentaires
-    displayAllComments(comments) {
-      CommentsRoutes.getAll(comments)
+    displayAllComments() {
+      CommentsRoutes.getAll()
         .then((res) => {
-          console.log("Affichage des com", res.data);
-          this.comments = res.data.comments;
+            this.comments = res.data;
         })
         .catch((error) => {
           console.log(error);
         });
     },
-
     // //Suppression des com
     deleteComment() {
-      CommentsRoutes.delete(this.comment.id)
-        .then((res) => {
-          console.log("Suppression d'un com", res.data);
+      CommentsRoutes.delete()
+        .then(() => {
+          alert('com supp!');
+          this.$router.go();
+          console.log("Suppression d'un com");
         })
         .catch((error) => {
-          console.log("erreur suppresion", error);
+          console.log("erreur suppresion front", error);
         });
     },
 
@@ -194,12 +195,38 @@ export default {
 </script>
 
 <style>
-#com-list {
-  border: 2px solid black;
-  background-color: cadetblue;
+* {
+    text-decoration: none;
+    list-style-type: none;
+}
+#post-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#post-content {
+  background-color: honeydew;
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: honeydew 0px 10px 10px ;
+}
+#comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#comment-list {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: gray 0px 5px 10px;
+  background-color: gainsboro;
+  margin: 10px;
 }
 button {
-  margin: 20px;
+  margin: 10px;
   padding: 10px;
   border-radius: 15px;
 }

@@ -40,7 +40,7 @@
     <ul id="list-container">
       <li id="post" v-for="post in posts" :key="post">
         <h2>{{ post.title }}</h2>
-        <div id="post-content">{{ post.content }}</div>
+        <div id="posts-content">{{ post.content }}</div>
         <div id="published"> Publié le {{ post.createdAt }} par {{ post.user.name }} {{ post.user.lastname }}</div>
 
         <!-- Chemin qui redirige vers la page qui affiche l'article grâce à son id-->
@@ -92,9 +92,9 @@ export default {
 <style>
 * {
   text-decoration: none;
+    list-style-type: none;
 }
 #list-container {
-  list-style-type: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,7 +108,7 @@ export default {
   width: 300px;
   overflow: hidden;
 }
-#post-content {
+#posts-content {
   text-overflow: ellipsis; 
   overflow: hidden;
   margin-bottom: 20px;

@@ -7,7 +7,7 @@ import axios from "./http-common";
 class PostRoutes {
   getAll() {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get("/articles/read-all", {
+    return axios.get("/articles", {
       headers: {
         authorization: `Bearer ${token}`
       }
@@ -16,7 +16,7 @@ class PostRoutes {
 
   get(id) {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get(`/articles/read-one/${id}`, {
+    return axios.get(`/articles/${id}`, {
       headers: {
         authorization: `Bearer ${token}`
       }

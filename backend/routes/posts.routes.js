@@ -9,9 +9,9 @@ const postCtrl = require('../controllers/posts');
 
 //Utilisation du router de vue.js et paramétrage des différentes URL
 //pour envoyer un article, récupérer les articles, récupérer un article avec l'id et le supprimer
-router.get('/read-all', auth, postCtrl.getAllPosts);
+router.get('/', auth, postCtrl.getAllPosts);
 router.post('/', auth, postCtrl.createPost);
-router.get('/read-one/:id', auth, postCtrl.getOnePost);
+router.get('/:id', auth, postCtrl.getOnePost);
 router.delete('/:id', auth, postCtrl.deletePost);
 
 module.exports = router;

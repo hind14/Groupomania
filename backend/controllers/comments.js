@@ -18,19 +18,7 @@ exports.createComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => { 
   Comment.findAll({
-    attributes: [
-    "id", "content", "userId", "postId"
-    ],
-    where: { postId: req.params.id},
-    include: [
-      {
-        model: Post,
-        as: "posts"
-      },
-      {
-        model: User,
-        as: "user"
-      }]
+    where: { postId: req.params.id}
   })
     .then((comments) => {
       res.status(200).json(comments);
@@ -43,7 +31,7 @@ exports.getAllComments = (req, res, next) => {
 //DELETE 
 
 exports.deleteComment = (req, res, next) => {
-  Comment.destroy({ where: {postId: req.params.postId }})
+  Comment.destroy({ where: {postId: req.params.postId, id: req.params.id, userId: req.params.userId }})
   .then((comment) => {
     res.status(200).json(comment); 
       })

@@ -3,7 +3,7 @@ import axios from "./http-common";
 class CommentsRoutes {
   create(data) {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.post(`/articles/read-one/:id/`, data, {
+    return axios.post(`/articles/:id`, data, {
       headers: {
         authorization: `Bearer ${token}`
       }
@@ -12,7 +12,7 @@ class CommentsRoutes {
 
   getAll() {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get(`/articles/read-one/:id/`,  {
+    return axios.get(`/articles/:id`,  {
       headers: {
         authorization: `Bearer ${token}`
       }
@@ -21,7 +21,7 @@ class CommentsRoutes {
 
   delete() {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.delete(`/articles/read-one/:id/`, {
+    return axios.delete(`/articles/:id`, {
       headers: {
         authorization: `Bearer ${token}`
       }
