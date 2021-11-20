@@ -35,7 +35,6 @@ app.use('/api/auth', userRoutes);
 app.use('/api/user', userRoutes );
 app.use('/api/articles', postsRoutes);
 app.use('/api/articles', commentsRoutes);
-// app.use('/api/auth', adminRoutes);
 
 db.sequelize.sync({force: false });
 

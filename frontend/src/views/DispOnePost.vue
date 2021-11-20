@@ -60,14 +60,14 @@
 
         <!-- Affichage de la liste des commentaires-->
           <ul id="comment-container">
-          <li v-for="comment in post.comments" :key="comment.content" id="comment-list">
+          <li v-for="comment in post.comments" :key="comment.id" id="comment-list">
             <div>{{ comment.content }}</div>
             <div> Ecrit par  </div>
 
            <!-- Affichage du btn supp si l'userId est le même que celui qui est
              dans le localStorage + btn lié avec l'évenement onclick -->
             <div v-if="storage.userId === comment.userId">
-              <button @click="deleteComment">Supprimer</button>
+              <button @click="deleteComment(comment)">Supprimer</button>
             </div>
           </li>
         </ul>
@@ -165,8 +165,8 @@ export default {
         });
     },
     // //Suppression des com
-    deleteComment() {
-      CommentsRoutes.delete()
+    deleteComment(comment) {
+      CommentsRoutes.delete(this.post.id, comment.id)
         .then(() => {
           alert('com supp!');
           this.$router.go();
@@ -190,7 +190,7 @@ export default {
     this.getOnePost(this.$route.params.id);
     this.displayAllComments();
     this.storage = JSON.parse(localStorage.getItem("groupomania-user"));
-  },
+ },
 };
 </script>
 

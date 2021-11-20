@@ -8,7 +8,10 @@ const User = db.user;
 //CREATE 
 
 exports.createComment = (req, res, next) => {
-  const comment = { content: req.body.content, userId: req.body.userId, postId: req.body.postId}
+  const comment = {
+    content: req.body.content,
+    userId: req.body.userId,
+    postId: req.body.postId}
   Comment.create(comment)
     .then(() => res.status(201).json({ message: 'commentaire enregistré !' }))
     .catch(error => res.status(400).json({ error }));
@@ -18,7 +21,13 @@ exports.createComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => { 
   Comment.findAll({
-    where: { postId: req.params.id}
+    where: { postId: req.params.id}, 
+    include: [
+        {
+          model: User,
+          attributes: [ "name", "lastname"]
+        }
+    ]
   })
     .then((comments) => {
       res.status(200).json(comments);
@@ -31,9 +40,19 @@ exports.getAllComments = (req, res, next) => {
 //DELETE 
 
 exports.deleteComment = (req, res, next) => {
-  Comment.destroy({ where: {postId: req.params.postId, id: req.params.id, userId: req.params.userId }})
+  Comment.findOne({
+    where: {
+      postId: req.params.postId,
+      id: req.params.id,
+    }, 
+  })
   .then((comment) => {
-    res.status(200).json(comment); 
+    if(!comment) {
+      res.status(400).json({error: "Vous n'avez pas l'autorisation"}); 
+    }
+    comment.destroy()
+    .then(() => res.status(200).json({ message: 'Commentaire supprimé !' }))
+    .catch(error => res.status(400).json({ error }))
       })
   .catch((error) => {
     res.status(404).json({ error: error});

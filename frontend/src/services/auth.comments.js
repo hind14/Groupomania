@@ -19,9 +19,9 @@ class CommentsRoutes {
     })
   }
 
-  delete() {
+  delete(post, comment) {
     const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.delete(`/articles/:id`, {
+    return axios.delete('/articles/' + post + '/comment/' + comment, {
       headers: {
         authorization: `Bearer ${token}`
       }
