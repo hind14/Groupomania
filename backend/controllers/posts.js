@@ -2,7 +2,6 @@ const db = require("../models");
 const Post = db.posts;
 const Comment = db.comments;
 const User = db.user;
-const jwt = require('jsonwebtoken');
 
 //CRUD
 
@@ -56,7 +55,7 @@ exports.getOnePost = async (req, res, next) => {
 //Suppression d'un article en cherchant son id (where)
 
 exports.deletePost = async (req, res, next) => {
-  const userId = req.params.userId
+  const userId = req.params.userId;
   if(Post.userId === userId || User.isAdmin === true) {
     Post.destroy({ where: { id: req.params.id } })
     .then((post) => {

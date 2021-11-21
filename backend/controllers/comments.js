@@ -7,7 +7,7 @@ const User = db.user;
 
 //CREATE 
 
-exports.createComment = (req, res, next) => {
+exports.createComment = async (req, res, next) => {
   const comment = {
     content: req.body.content,
     userId: req.body.userId,
@@ -19,13 +19,13 @@ exports.createComment = (req, res, next) => {
 
 //READ
 
-exports.getAllComments = (req, res, next) => { 
+exports.getAllComments = async (req, res, next) => { 
   Comment.findAll({
     where: { postId: req.params.id}, 
     include: [
         {
           model: User,
-          attributes: [ "name", "lastname"]
+          as: "user"
         }
     ]
   })
@@ -39,7 +39,9 @@ exports.getAllComments = (req, res, next) => {
 
 //DELETE 
 
-exports.deleteComment = (req, res, next) => {
+exports.deleteComment = async (req, res, next) => {
+  const userId = req.params.userId;
+  if(Comment.userId === userId || User.isAdmin == true) {
   Comment.findOne({
     where: {
       postId: req.params.postId,
@@ -57,4 +59,5 @@ exports.deleteComment = (req, res, next) => {
   .catch((error) => {
     res.status(404).json({ error: error});
  });
+}
 };
