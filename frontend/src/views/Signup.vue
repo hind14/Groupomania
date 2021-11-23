@@ -1,6 +1,5 @@
 <template>
   <div class="signup">
-
     <div id="header">
       <img
         id="icon-groupo"
@@ -12,64 +11,68 @@
           <li>
             <router-link class="router-style" to="/"> Accueil </router-link>
           </li>
-           <li>
-            <router-link class="router-style" to="/connexion"> Connexion </router-link>
+          <li>
+            <router-link class="router-style" to="/connexion">
+              Connexion
+            </router-link>
           </li>
         </ul>
       </nav>
     </div>
 
-    <div class="form-style">
+    <div id="form-style">
       <h1>N'attendez plus, inscrivez-vous !</h1>
-       <!-- Création d'un formulaire pour s'inscrire
+      <!-- Création d'un formulaire pour s'inscrire
         Événement submit avec un prevent qui évite le rechargement de la page
         Utilisation du v-model pour relier et mettre à jour les données (data)  -->
       <form @submit.prevent="signup" id="form">
-        <label for="name">Prénom</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          v-model="name"
-          required="true"
-        />
-        <br />
-        <label for="lastname">Nom</label>
-        <input
-          type="text"
-          id="lastname"
-          name="lastname"
-          v-model="lastname"
-          required="true"
-        />
-        <br />
-
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          v-model="email"
-          required="true"
-        />
-        <br />
-
-        <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          v-model="password"
-          required="true"
-        />
-        <br />
+        <div class="form-first-child">
+          <label for="name">Prénom</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            v-model="name"
+            required="true"
+          />
+        </div>
+        <div class="form-first-child">
+          <label for="lastname">Nom</label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            v-model="lastname"
+            required="true"
+          />
+        </div>
+        <div class="form-first-child">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            v-model="email"
+            required="true"
+          />
+        </div>
+        <div class="form-first-child">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            v-model="password"
+            required="true"
+          />
+        </div>
 
         <button id="signup-style">Inscription</button>
       </form>
-    </div>
-    <div>
-      Déja membre?
-      <router-link to="/connexion">Connectez-vous !</router-link>
+      <div>
+        Déja membre?
+        <router-link to="/connexion">Connectez-vous !</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -86,11 +89,11 @@ export default {
       name: "",
       lastname: "",
       email: "",
-      password: ""
+      password: "",
     };
   },
   //Appel d'axios pour consommer l'API ci-dessous
-  //Envoi des données à l'API grâce à axios 
+  //Envoi des données à l'API grâce à axios
   methods: {
     signup() {
       axios
@@ -102,7 +105,7 @@ export default {
         })
         //Redirection vers la page connexion
         .then(() => {
-          swal('Bravo ! Vous êtes inscris !');
+          swal("Bravo ! Vous êtes inscris !");
           this.$router.push("connexion");
         })
         .catch((error) => {
@@ -114,32 +117,69 @@ export default {
 </script>
 
 <style>
-#home {
-  margin: 20px;
-}
-#header {
+.signup {
   display: flex;
-  justify-content: space-between;
-  background-color: #deebff;
+  flex-direction: column;
 }
-.form-style {
+#form-style {
+  align-self: center;
+  width: 500px;
   padding: 25px;
-  margin: 20px;
+  margin: 50px;
   border: solid 2px grey;
   border-radius: 20px;
-  background-color: #deebff;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 h1 {
   font-size: 25px;
 }
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-first-child {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin: 0;
+}
 label {
-  padding: 10px;
+margin: auto;
+padding: 5px;
+font-weight: bold;
 }
 input {
   margin: 10px 0;
+  border: darkblue 1px solid;
+  border-radius: 6px;
+  padding: 5px;
 }
-#signup-style {
+button {
+  margin: 20px;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 15px;
+  align-self: center;
+  margin-bottom: 10px;
+}
+@media all and (max-width: 700px) {
+  #form-style {
+    width: 250px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+  }
+  .form-first-child {
+    flex-direction: column;
+    width: 200px;
+  }
+  h1 {
+    font-size: 20px;
+  }
 }
 </style>

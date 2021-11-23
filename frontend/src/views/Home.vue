@@ -20,10 +20,9 @@
     <router-view />
 
     <div id="intro">
-      <p> Bienvenue sur Groupomania, une entreprise qui s'investie dans le bien être
+      Bienvenue sur Groupomania, une entreprise qui s'investie dans le bien être
       de ses salairés. Inscrivez-vous afin d'écrire et de partager vos articles
       avec vos collègues !
-      </p>
     </div>
   </div>
 </template>
@@ -32,6 +31,10 @@
 </script>
 
 <style>
+* {
+  text-decoration: none;
+  list-style-type: none;
+}
 body {
   margin: 0;
   padding: 0;
@@ -43,6 +46,8 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: #deebff;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 #header ul {
   list-style-type: none;
@@ -56,28 +61,39 @@ body {
   margin: 10px 0 0 10px;
 }
 #header ul li {
-  list-style: none;
-  padding: 10px;
-}
-.router-style {
-  text-decoration: none;
+  padding: 20px;
 }
 #intro {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 20px;
   padding: 20px;
-  margin: 20px;
-  font-size: 30px;
+  margin: 50px;
+  font-size: 25px;
 }
 @media all and (max-width:700px)
 {
+  #header {
+    margin: 0;
+    padding: 0;
+  }
   #header #icon-groupo {
-    width: 120px;
+    width: 200px;
   }
   #header ul li {
-  list-style: none;
-  padding: 10px 5px 10px 5px;
-}
+  position: relative;
+  padding: 5px 5px 0px 5px;
+  }
+  #intro {
+  width: 250px;
+  height: 260px;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+  }
 }
 
 </style>

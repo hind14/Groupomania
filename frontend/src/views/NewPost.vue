@@ -126,9 +126,10 @@ export default {
 #title-field {
   margin: 20px;
 }
-button {
-  margin: 20px;
-  padding: 10px;
-  border-radius: 15px;
+@media all and (max-width:600px) {
+  #content {
+    width: 250px;
+    height: 300px;
+  }
 }
 </style>

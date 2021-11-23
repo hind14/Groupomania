@@ -38,7 +38,7 @@
     <!-- Liste des articles, relié grâce à une boucle for
       Afficher l'objet post dans le tableau posts -->
     <ul id="list-container">
-      <li id="post" v-for="post in posts" :key="post">
+      <li id="post-list" v-for="post in posts" :key="post">
         <h2>{{ post.title }}</h2>
         <div id="posts-content">{{ post.content }}</div>
         <div id="published"> Publié le {{ post.createdAt }} par {{ post.user.name }} {{ post.user.lastname }}</div>
@@ -90,17 +90,14 @@ export default {
 </script>
 
 <style>
-* {
-  text-decoration: none;
-    list-style-type: none;
-}
 #list-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
-#post {
+#post-list {
   border-radius: 15px;
   background-color: rgb(195, 233, 223);
   margin: 20px;
@@ -122,5 +119,10 @@ export default {
 }
 #published {
   margin: 20px;
+}
+@media all and (max-width:700px) {
+  #post-list {
+   width: 200px;
+  }
 }
 </style>

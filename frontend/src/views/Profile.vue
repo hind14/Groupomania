@@ -25,22 +25,19 @@
       </nav>
     </div>
 
+    <h1>Bienvenue {{ user.name }} {{ user.lastname }}</h1>
+    <div>Email: {{ user.email }}</div>
     <div>
-      <h1>Bienvenue {{ user.name }}</h1>
-      <div> Email: {{ user.email}}</div>
-      <div>Administrateur : 
-        <span v-if="user.isAdmin == true"> Oui</span>
-        <span v-if="user.isAdmin == false"> Non</span>
-      </div>
-      <button @click="deleteAccount">Supprimer mon compte</button>
+      Administrateur :
+      <span v-if="user.isAdmin == true"> Oui</span>
+      <span v-else> Non</span>
     </div>
-   
+    <button @click="deleteAccount">Supprimer mon compte</button>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
-import userRoutes from '../services/auth.user';
+import userRoutes from "../services/auth.user";
 import swal from "sweetalert";
 
 export default {
@@ -51,50 +48,51 @@ export default {
     };
   },
   methods: {
-
     //Récupération des données de l'utilisateur grâce à son id
     getUser(id) {
-
       let storageUser = JSON.parse(localStorage.getItem("groupomania-user"));
       id = storageUser.userId;
-      userRoutes.get(id)
-          //Création d'un localStorage qui enregistre les données
-          //Puis la page est rediriger vers les articles
-          .then((res) => {
-            this.user = res.data.user;
-          })
-          .catch((error) => {
-            console.log(error, 'erreur Profile.vue');
-          });
+      userRoutes
+        .get(id)
+        //Création d'un localStorage qui enregistre les données
+        //Puis la page est rediriger vers les articles
+        .then((res) => {
+          this.user = res.data.user;
+        })
+        .catch((error) => {
+          console.log(error, "erreur Profile.vue");
+        });
     },
 
     /* Suppression du compte */
 
-   deleteAccount(id) {
+    deleteAccount(id) {
       let storageUser = JSON.parse(localStorage.getItem("groupomania-user"));
       id = storageUser.userId;
 
-      swal({ text: 'Etes-vous sûr de supprimer votre compte ?', buttons: true})
-      .then((willDelete) => {
-      if (willDelete) {
-        userRoutes.delete(id)
-        .then(() => {
-            swal("Compte supprimé !");
-            this.$router.push("connexion");
-            localStorage.removeItem("groupomania-user");
-        })
-        .catch((error) => {
-          console.log( error);
-        });
-      } else {
-      swal("Votre compte n'a pas été supprimé!");
-      }
+      swal({
+        text: "Etes-vous sûr de supprimer votre compte ?",
+        buttons: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          userRoutes
+            .delete(id)
+            .then(() => {
+              swal("Compte supprimé !");
+              this.$router.push("connexion");
+              localStorage.removeItem("groupomania-user");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          swal("Votre compte n'a pas été supprimé!");
+        }
       });
     },
 
-
     /* Déconnexion */
-    
+
     logout() {
       localStorage.removeItem("groupomania-user");
       this.$router.push("connexion");
@@ -102,7 +100,7 @@ export default {
   },
   mounted() {
     this.getUser(this.$route.params.id);
-  }
+  },
 };
 </script>
 

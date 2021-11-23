@@ -11,37 +11,41 @@
           <li>
             <router-link class="router-style" to="/"> Accueil </router-link>
           </li>
-           <li>
-            <router-link class="router-style" to="/inscription"> Inscription </router-link>
+          <li>
+            <router-link class="router-style" to="/inscription">
+              Inscription
+            </router-link>
           </li>
         </ul>
       </nav>
     </div>
 
     <h1>Connexion</h1>
-      <!-- Création d'un formulaire pour se connecter 
+    <!-- Création d'un formulaire pour se connecter 
       Événement submit avec un prevent qui évite le chargement de la page
       Utilisation du v-model pour relier et mettre à jour les données (data)  -->
     <form @submit.prevent="login" id="form">
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        v-model="email"
-        required="true"
-      />
-      <br />
+      <div class="form-first-child">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          v-model="email"
+          required="true"
+        />
+      </div>
 
-      <label for="password">Mot de passe:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        v-model="password"
-        required="true"
-      />
-      <br />
+      <div class="form-first-child">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          v-model="password"
+          required="true"
+        />
+      </div>
 
       <button>Se connecter</button>
     </form>

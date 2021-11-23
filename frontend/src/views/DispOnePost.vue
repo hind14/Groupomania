@@ -102,7 +102,7 @@ export default {
     return {
       //tableau des commentaires, objet contenant l'id et le contenu d'un com
       //l'article se trouve dans un objet, et le storage qui contiendra le localStorage
-      storage: "",
+      storage: JSON.parse(localStorage.getItem("groupomania-user")),
       post: {},
       comments: [],
       comment: {
@@ -210,7 +210,7 @@ export default {
       id = storageUser.userId;
       userRoutes.get(id)
           //Création d'un localStorage qui enregistre les données
-          //Puis la page est rediriger vers les articles
+          //Puis la page est redirigée vers les articles
           .then((res) => {
             this.user = res.data.user;
           })
@@ -223,7 +223,6 @@ export default {
     //Redirection vers la page de connexion
     logout() {
       localStorage.removeItem("groupomania-user");
-      this.$router.push("connexion");
     },
   },
   //La fonction qui récupère l'article est montée dans le DOM
@@ -232,7 +231,6 @@ export default {
     this.getOnePost(this.$route.params.id);
     this.getUser(this.$route.params.id);
     this.displayAllComments();
-    this.storage = JSON.parse(localStorage.getItem("groupomania-user"));
   },
 };
 </script>
@@ -261,6 +259,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 #create-comment {
   margin: 20px;
@@ -285,5 +284,19 @@ button {
 #delete-comment {
   margin: 5px;
   padding: 5px;
+}
+@media all and (max-width:700px) {
+  #post-container {
+   margin: 0;
+  }
+  #post-content {
+  width: 300px;
+}
+#comment-list {
+  width: 300px;
+}
+#textarea-comment {
+  width: 300px;
+}
 }
 </style>
