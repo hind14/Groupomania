@@ -23,7 +23,7 @@ const db = require("./models");
 const helmet = require('helmet');
 app.use(helmet());
 
-// Middleware d'autorisation qui donne l'accès à l'API depuis n'importe quelle origine,
+// Middleware d'autorisation qui permet à l'application d'accèder à l'API depuis n'importe quelle origine,
 // d'utiliser certaines entêtes mentionnées aux requêtes envoyées vers l'API
 // et d'envoyer des requêtes avec les méthodes ci-dessous
 app.use((req, res, next) => {
