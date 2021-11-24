@@ -26,7 +26,7 @@
         Événement submit avec un prevent qui évite le rechargement de la page
         Utilisation du v-model pour relier et mettre à jour les données (data)  -->
       <form @submit.prevent="signup" id="form">
-        <div class="form-first-child">
+        <div class="signup-inputs">
           <label for="name">Prénom</label>
           <input
             type="text"
@@ -36,7 +36,7 @@
             required="true"
           />
         </div>
-        <div class="form-first-child">
+        <div class="signup-inputs">
           <label for="lastname">Nom</label>
           <input
             type="text"
@@ -46,7 +46,7 @@
             required="true"
           />
         </div>
-        <div class="form-first-child">
+        <div class="signup-inputs">
           <label for="email">Email</label>
           <input
             type="email"
@@ -56,7 +56,7 @@
             required="true"
           />
         </div>
-        <div class="form-first-child">
+        <div class="signup-inputs">
           <label for="password">Mot de passe</label>
           <input
             type="password"
@@ -109,7 +109,8 @@ export default {
           this.$router.push("connexion");
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error)
+          swal("Votre mot de passe doit contenir au minimum huit caractères dont une majuscule et deux chiffres")
         });
     },
   },
@@ -138,7 +139,7 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
-.form-first-child {
+.signup-inputs {
   display: flex;
   flex-direction: row;
   width: 300px;
@@ -174,7 +175,7 @@ button {
     text-align: center;
     margin: auto;
   }
-  .form-first-child {
+  .signup-inputs {
     flex-direction: column;
     width: 200px;
   }

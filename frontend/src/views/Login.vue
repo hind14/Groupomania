@@ -25,7 +25,7 @@
       Événement submit avec un prevent qui évite le chargement de la page
       Utilisation du v-model pour relier et mettre à jour les données (data)  -->
     <form @submit.prevent="login" id="form">
-      <div class="form-first-child">
+      <div class="signup-inputs">
         <label for="email">Email</label>
         <input
           type="email"
@@ -36,7 +36,7 @@
         />
       </div>
 
-      <div class="form-first-child">
+      <div class="signup-inputs">
         <label for="password">Mot de passe</label>
         <input
           type="password"
@@ -54,6 +54,7 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 
 export default {
   name: "login",
@@ -80,6 +81,7 @@ export default {
           this.$router.push("articles");
         })
         .catch((error) => {
+          swal("Votre email ou mot de passe est incorrect, veulliez réessayer.")
           console.log(error);
         });
     },

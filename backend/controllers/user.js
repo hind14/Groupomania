@@ -2,13 +2,16 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../models');
 const User = db.user;
+const passwordValidator = require('../middleware/password-validator');
 
 //CRUD
 
 //Fonction d'inscription qui crée un utilisateur et stocke dans un objet
 //le prénom, nom, email et mdp d'un utilisateur, puis l'envoie dans la base de données
 exports.signup = (req, res, next) => {
-
+  if (!passwordValidator.validate(req.body.password)) {
+    return res.status(401).json({ error: 'Mot de passe invalide !' });
+  }
   //SÉCURITÉ --> Mdp haché 
   bcrypt.hash(req.body.password, 10)
     .then(hash => {

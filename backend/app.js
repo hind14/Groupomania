@@ -1,5 +1,7 @@
+//Chargement du fichier .env (pour la clé jwt)
 require('dotenv').config();
 
+// Appel d'express et de cors 
 const express = require('express');
 const cors = require('cors');
 
@@ -14,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Variable qui contient les models de la base de donnée mysql
 const db = require("./models");
 
 // Appel d'helmet qui permet de sécuriser Express en créant plusieurs entêtes HTTP.
@@ -32,10 +35,10 @@ app.use((req, res, next) => {
 
 // Configuration des routes utilisateurs, articles et commentaires avec l'API
 app.use('/api/auth', userRoutes);
-app.use('/api/user', userRoutes );
+app.use('/api/user', userRoutes);
 app.use('/api/articles', postsRoutes);
 app.use('/api/articles', commentsRoutes);
 
-db.sequelize.sync({force: false });
+db.sequelize.sync({ force: false });
 
 module.exports = app;
