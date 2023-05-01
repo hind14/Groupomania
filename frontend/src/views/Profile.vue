@@ -14,12 +14,12 @@
             </router-link>
           </li>
           <li>
-            <router-link id="add-post" to="/ecrire-un-nouvel-article">
+            <router-link class="router-style" id="add-post" to="/ecrire-un-nouvel-article">
               Ajouter un article
             </router-link>
           </li>
           <li>
-            <router-link to="/articles"> Articles </router-link>
+            <router-link class="router-style" to="/articles"> Articles </router-link>
           </li>
         </ul>
       </nav>
@@ -105,4 +105,7 @@ export default {
 </script>
 
 <style>
+.router-style {
+  color : white;
+}
 </style>

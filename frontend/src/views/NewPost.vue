@@ -17,7 +17,7 @@
             <router-link to="/" @click="logout" class="router-style">Deconnexion</router-link>
           </li>
           <li>
-            <router-link to="/articles"> Articles </router-link>
+            <router-link class="router-style" to="/articles"> Articles </router-link>
           </li>
         </ul>
       </nav>

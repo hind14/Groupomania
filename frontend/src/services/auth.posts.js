@@ -1,44 +1,30 @@
 import axios from "./http-common";
 
+const token = JSON.parse(localStorage.getItem("groupomania-user")).token;
+const articlesPath = "/articles";
+const communHeaders =  {headers: {
+  authorization: `Bearer ${token}`
+}}
+
 //Fonction qui crée un article, récupère tous les articles, récp un article 
 //grâce à son id et supprime l'article grâce à l'id
 //Utilisation d'axios pour envoyer des requête http
 //Récupération du token du localStorage afin d'autoriser les actions
 class PostRoutes {
   getAll() {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get("/articles", {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    });
+    return axios.get(articlesPath, communHeaders);
   }
 
   get(id) {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get(`/articles/${id}`, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+    return axios.get(`${articlesPath}/${id}`, communHeaders)
   }
 
   create(data) {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.post("/articles", data, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+    return axios.post(articlesPath , data, communHeaders)
   }
 
   delete(id) {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.delete(`/articles/${id}`, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+    return axios.delete(`${articlesPath}/${id}`, communHeaders)
   }
 }
 

@@ -182,6 +182,7 @@ export default {
           console.log(error);
         });
     },
+
     // //Suppression des com
 
     deleteComment(comment) {

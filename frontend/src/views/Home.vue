@@ -45,7 +45,7 @@ body {
 #header {
   display: flex;
   justify-content: space-between;
-  background-color: #deebff;
+  background-color: #fd2d01;
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -69,6 +69,9 @@ body {
   padding: 20px;
   margin: 50px;
   font-size: 25px;
+}
+.router-style {
+  color : white;
 }
 @media all and (max-width:700px)
 {

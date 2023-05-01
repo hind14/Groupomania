@@ -1,22 +1,18 @@
 import axios from "./http-common";
 
+const token = JSON.parse(localStorage.getItem("groupomania-user")).token;
+const communHeaders =  {headers: {
+  authorization: `Bearer ${token}`
+}}
+const userPath = "/user/profile"
+
 class UserRoutes {
     get(id) {
-      const token = JSON.parse(localStorage.getItem("groupomania-user")).token;
-      return axios.get(`/user/profile/${id}`, {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      })
+      return axios.get(`${userPath}/${id}`, communHeaders )
     }
   
     delete(id) {
-      const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-      return axios.delete(`/user/profile/${id}`, {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      })
+      return axios.delete(`${userPath}/${id}`, communHeaders)
     }
 }
   

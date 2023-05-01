@@ -1,32 +1,22 @@
 import axios from "./http-common";
 
+const token = JSON.parse(localStorage.getItem("groupomania-user")).token;
+const communHeaders =  {headers: {
+  authorization: `Bearer ${token}`
+}}
+
 class CommentsRoutes {
   create(data) {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.post(`/articles/:id`, data, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+    return axios.post(`/articles/:id`, data, communHeaders)
   }
 
   getAll() {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.get(`/articles/:id`,  {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+    return axios.get(`/articles/:id`,  communHeaders)
   }
 
   delete(post, comment) {
-    const token = JSON.parse(localStorage.getItem("groupomania-user")).token
-    return axios.delete('/articles/' + post + '/comment/' + comment, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
-  }
+     axios.delete(`/articles/${post}/comment/${comment}`, communHeaders)
+return  }
 }
 
 export default new CommentsRoutes();

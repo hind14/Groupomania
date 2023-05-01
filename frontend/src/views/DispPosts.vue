@@ -99,7 +99,7 @@ export default {
 }
 #post-list {
   border-radius: 15px;
-  background-color: rgb(195, 233, 223);
+  background-color: #ffd7d7;
   margin: 20px;
   padding: 40px;
   width: 300px;
@@ -112,7 +112,7 @@ export default {
   white-space: nowrap;
 }
 #link-to-article {
-  border: 1px rgb(82, 66, 112) solid;
+  border: 1px #fd2d01 solid;
   border-radius: 5px;
   padding: 10px;
   color: black;
